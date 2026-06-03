@@ -57,7 +57,7 @@ for (col in numeric_cols) {
   diagnose_column(df, col)
   cat("-------------------\n")
 }
-
+########chapter1####################
 # job title by industry 
 df %>%
   count(Industry, Job_Title) %>%
@@ -137,14 +137,14 @@ df %>%
   )) +
   theme_minimal() +
   theme(legend.position = "bottom")
-
+###################chapter2 #########################
 #chapter2.1 #AI replacement with the risk 
 df %>%
   group_by(Industry) %>%
   summarise(avg_risk = mean(AI_Replacement_Risk, na.rm = TRUE)) %>%
   arrange(desc(avg_risk)) %>%
   ggplot(aes(x = reorder(Industry, avg_risk), y = avg_risk)) +
-  geom_bar(stat = "identity", fill = "purple") +
+  geom_bar(stat = "identity", fill = "red") +
   coord_flip() +
   labs(
     title = "Average AI Replacement Risk by Industry",
@@ -152,5 +152,7 @@ df %>%
     y = "Average Risk Score"
   ) +
   theme_minimal()
+
+
 
 
