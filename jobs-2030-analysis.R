@@ -57,3 +57,46 @@ for (col in numeric_cols) {
   diagnose_column(df, col)
   cat("-------------------\n")
 }
+
+# job title by industry 
+df %>%
+  count(Industry, Job_Title) %>%
+  ggplot(aes(x = reorder(Industry, n), y = n, fill = Job_Title)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Job Titles Distribution Across Industries",
+    x = "Industry",
+    y = "Number of Jobs",
+    fill = "Job Title"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+# 1a number of jobs by industry 
+df %>%
+  count(Industry) %>%
+  arrange(desc(n)) %>%
+  ggplot(aes(x = reorder(Industry, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#4C72B0") +
+  coord_flip() +
+  labs(
+    title = "Number of Jobs by Industry",
+    x = "Industry",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+#1b most common job titles 
+df %>%
+  count(Job_Title) %>%
+  arrange(desc(n)) %>%
+  ggplot(aes(x = reorder(Job_Title, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#55A868") +
+  coord_flip() +
+  labs(
+    title = "Most Common Job Titles",
+    x = "Job Title",
+    y = "Count"
+  ) +
+  theme_minimal()
+
