@@ -101,8 +101,56 @@ df %>%
   theme_minimal()
 
 
+#chapter1b future demad score by job title 
+df %>%
+  group_by(Job_Title) %>%
+  summarise(avg_demand = mean(Future_Demand_Score, na.rm = TRUE)) %>%
+  arrange(desc(avg_demand)) %>%
+  ggplot(aes(x = reorder(Job_Title, avg_demand), y = avg_demand)) +
+  geom_bar(stat = "identity", fill = "#E87D2B") +
+  coord_flip() +
+  labs(
+    title = "Average Future Demand Score by Job Title",
+    x = "Job Title",
+    y = "Average Demand Score"
+  ) +
+  theme_minimal()
 
+# chapter1.3 hiring trend 2026 industry
+df %>%
+  count(Industry, Hiring_Trend_2026) %>%
+  group_by(Industry) %>%
+  mutate(pct = n / sum(n) * 100) %>%
+  ggplot(aes(x = reorder(Industry, pct), y = pct, fill = Hiring_Trend_2026)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Hiring Trend 2026 by Industry",
+    x = "Industry",
+    y = "Percentage (%)",
+    fill = "Hiring Trend"
+  ) +
+  scale_fill_manual(values = c(
+    "Growing"  = "green",
+    "Stable"   = "blue", 
+    "Declining" = "red"
+  )) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
 
-
+#chapter2.1 #AI replacement with the risk 
+df %>%
+  group_by(Industry) %>%
+  summarise(avg_risk = mean(AI_Replacement_Risk, na.rm = TRUE)) %>%
+  arrange(desc(avg_risk)) %>%
+  ggplot(aes(x = reorder(Industry, avg_risk), y = avg_risk)) +
+  geom_bar(stat = "identity", fill = "purple") +
+  coord_flip() +
+  labs(
+    title = "Average AI Replacement Risk by Industry",
+    x = "Industry",
+    y = "Average Risk Score"
+  ) +
+  theme_minimal()
 
 
